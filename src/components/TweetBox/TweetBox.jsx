@@ -1,12 +1,22 @@
 import TweetInput from "./TweetInput"
 import "./TweetBox.css"
 
-export default function TweetBox(props) {
-  function handleOnSubmit() {
+export default function TweetBox({userProfile, setTweets, tweetText = "", setTweetText}) {
+  function handleOnTweetTextChange(ev) {
+    console.log({
+      context: "TweetBox.handleOnTweetTextChange",
+      ev: ev
+    })
+    
+    setTweetText(ev.target.value);
+  }
+
+  function handleOnSubmit(ev) {
+
     var newTweet = {
-      name: props.userProfile.name,
-      handle: props.userProfile.handle,
-      text: "",
+      name: userProfile.name,
+      handle: userProfile.handle,
+      text: tweetText,
       comments: 0,
       retweets: 0,
       likes: 0
@@ -14,11 +24,15 @@ export default function TweetBox(props) {
 
     console.log({
       context: "TweetBox.handleOnSubmit",
-      props: props,
-      newTweet: newTweet
+      userProfile: userProfile,
+      setTweets: setTweets,
+      tweetText: tweetText,
+      setTweetText: setTweetText,
+      newTweet: newTweet,
+      ev: ev
     })
 
-    props.setTweets((oldTweets) => {
+    setTweets((oldTweets) => {
       var newTweets = [...oldTweets, { ...newTweet, id: oldTweets.length }];
 
       console.log({
@@ -29,11 +43,13 @@ export default function TweetBox(props) {
 
       return newTweets
     })
+
+    setTweetText("");
   }
   
   return (
     <div className="tweet-box">
-      <TweetInput />
+      <TweetInput value={tweetText} handleOnChange={handleOnTweetTextChange} />
 
       <div className="tweet-box-footer">
         <TweetBoxIcons />
@@ -61,10 +77,12 @@ export function TweetCharacterCount(props) {
 }
 
 export function TweetSubmitButton({handleOnSubmit}) {
+  /*
   console.log({
     context: "TweetSubmitButton.ctor",
     handleOnSubmit: handleOnSubmit
   })
+  */
 
   return (
     <div className="tweet-submit">

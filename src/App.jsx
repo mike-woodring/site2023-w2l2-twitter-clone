@@ -8,13 +8,20 @@ import { codepathUserProfile, firstTweet, navLinks } from "./constants"
 export default function App() {
   const [userProfile, setUserProfile] = useState(codepathUserProfile)
   const [tweets, setTweets] = useState([firstTweet])
+  const [tweetText, setTweetText] = useState("")
 
   return (
     <div className="app">
       <Navbar navLinks={navLinks} />
       <main>
         <UserProfile userProfile={userProfile} />
-        <Feed tweets={tweets} setTweets={setTweets} userProfile={userProfile} />
+        <Feed
+          userProfile={userProfile}
+          tweets={tweets}
+          setTweets={setTweets}
+          tweetText={tweetText}
+          setTweetText={setTweetText}
+        />
         <Advertisements />
       </main>
     </div>
