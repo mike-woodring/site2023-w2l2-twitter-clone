@@ -5,7 +5,7 @@ export default function Navbar({ navLinks }) {
   return (
     <nav>
       <div className="navbar-container">
-        <NavLinks />
+        <NavLinks navLinks={navLinks} />
         <TwitterIcon />
         <SearchBar />
         <TweetButton />
@@ -15,14 +15,24 @@ export default function Navbar({ navLinks }) {
 }
 
 export function NavLinks({ navLinks }) {
-  return <ul className="nav-links">{/* WRITE CODE HERE */}</ul>
+  return <ul className="nav-links">{
+    /* WRITE CODE HERE */
+    navLinks.map((link, index) => {
+      return (
+        <NavLink
+          key={`link-${index}`}
+          navLink={link}
+        />
+      )
+    })
+  }</ul>
 }
 
 export function NavLink({ navLink }) {
   return (
     <li className={navLink.className}>
       <i className={navLink.icon}></i>
-      <span></span>
+      <span>{navLink.label}</span>
     </li>
   )
 }

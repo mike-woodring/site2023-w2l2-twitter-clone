@@ -6,8 +6,8 @@ export default function UserProfile({ userProfile }) {
     <div className="col user-profile">
       <div className="card">
         <div className="card-bg" />
-        <CardContent />
-        <CardFooter />
+        <CardContent userProfile={userProfile} />
+        <CardFooter  userProfile={userProfile}/>
       </div>
     </div>
   )
